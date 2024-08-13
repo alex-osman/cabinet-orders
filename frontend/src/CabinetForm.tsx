@@ -9,15 +9,18 @@ interface Cabinet {
   configurationType: ConfigurationType;
 }
 
+const configurationImages = {
+  [ConfigurationType.TWO_DRAWER]: require('./assets/images/2_drawer.jpeg'),
+  [ConfigurationType.THREE_DRAWER]: require('./assets/images/3_drawer.avif'),
+  [ConfigurationType.DOOR]: require('./assets/images/door.jpg'),
+  [ConfigurationType.DOOR_FALSE_FRONT]: require('./assets/images/door_false_front.jpg'),
+};
+
 const CabinetForm: React.FC = () => {
   const [customerName, setCustomerName] = useState<string>('');
   const [cabinets, setCabinets] = useState<Cabinet[]>([
-    { width: 0, height: 0, depth: 21, configurationType: ConfigurationType.TWO_DRAWER },
+    { width: 15, height: 15, depth: 21, configurationType: ConfigurationType.TWO_DRAWER },
   ]);
-
-  const addCabinet = () => {
-    setCabinets([...cabinets, { width: 0, height: 0, depth: 21, configurationType: ConfigurationType.TWO_DRAWER }]);
-  };
 
   const updateCabinet = (index: number, key: keyof Cabinet, value: any) => {
     const updatedCabinets = cabinets.map((cabinet, i) =>
@@ -37,7 +40,7 @@ const CabinetForm: React.FC = () => {
       await axios.post('http://localhost:4000/orders', orderData);
       alert('Order created successfully!');
       setCustomerName('');
-      setCabinets([{ width: 0, height: 0, depth: 21, configurationType: ConfigurationType.TWO_DRAWER }]);
+      setCabinets([{ width: 15, height: 15, depth: 21, configurationType: ConfigurationType.TWO_DRAWER }]);
     } catch (error) {
       console.error('Error submitting order:', error);
     }
@@ -108,12 +111,13 @@ const CabinetForm: React.FC = () => {
                 </select>
               </div>
             </div>
+            {cabinet.configurationType && (
+              <div className="text-center mb-3">
+                <img src={configurationImages[cabinet.configurationType]} alt={cabinet.configurationType} style={{ width: '100%', maxWidth: '300px' }} />
+              </div>
+            )}
           </div>
         ))}
-
-        <button type="button" className="btn btn-secondary mb-3" onClick={addCabinet}>
-          Add Another Cabinet
-        </button>
 
         <button type="submit" className="btn btn-primary">Submit Order</button>
       </form>

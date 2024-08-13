@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { ConfigurationType } from '../../shared/configuration-type.enum';
+import { ConfigurationType } from './enums/configuration-type.enum';
 
 interface Cabinet {
   id: number;
@@ -68,11 +68,11 @@ const OrdersList: React.FC = () => {
                   <tr key={cabinet.id}>
                     <td colSpan={4} style={{ paddingLeft: '30px' }}>
                       <table>
-                        <tr><th>Cabinet ID:</th><td>{cabinet.id}</td></tr>
-                        <tr><th> Width:</th><td>{cabinet.width} in</td></tr>
-                        <tr><th> Height:</th><td>{cabinet.height} in</td></tr>
-                        <tr><th> Depth:</th><td>{cabinet.depth} in</td></tr>
-                        <tr><th> Type:</th><td>{cabinet.configurationType}</td></tr>
+                        <tr><th> ID:</th><td>{cabinet.id}</td></tr>
+                        <tr><th>Width:</th><td>{cabinet.width} in</td></tr>
+                        <tr><th>Height:</th><td>{cabinet.height} in</td></tr>
+                        <tr><th>Depth:</th><td>{cabinet.depth} in</td></tr>
+                        <tr><th>Type:</th><td>{cabinet.configurationType}</td></tr>
                       </table>
                     </td>
                   </tr>
