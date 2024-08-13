@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ConfigurationType } from './enums/configuration-type.enum';
+import { StyleType } from './enums/StyleType.enum';
+import { useNavigate } from 'react-router-dom';
 
 interface Cabinet {
   width: number;
   height: number;
   depth: number;
   configurationType: ConfigurationType;
+  style: StyleType;
 }
 
 const configurationImages = {
@@ -17,9 +20,10 @@ const configurationImages = {
 };
 
 const CabinetForm: React.FC = () => {
+  const navigate = useNavigate();
   const [customerName, setCustomerName] = useState<string>('');
   const [cabinets, setCabinets] = useState<Cabinet[]>([
-    { width: 15, height: 15, depth: 21, configurationType: ConfigurationType.TWO_DRAWER },
+    { width: 15, height: 15, depth: 21, configurationType: ConfigurationType.TWO_DRAWER, style: StyleType.SEGMENT },
   ]);
 
   const updateCabinet = (index: number, key: keyof Cabinet, value: any) => {
@@ -39,8 +43,7 @@ const CabinetForm: React.FC = () => {
     try {
       await axios.post('http://localhost:4000/orders', orderData);
       alert('Order created successfully!');
-      setCustomerName('');
-      setCabinets([{ width: 15, height: 15, depth: 21, configurationType: ConfigurationType.TWO_DRAWER }]);
+      navigate('/orders');
     } catch (error) {
       console.error('Error submitting order:', error);
     }
@@ -111,9 +114,29 @@ const CabinetForm: React.FC = () => {
                 </select>
               </div>
             </div>
+            <div className="row mb-3">
+              <div className="col-md-4">
+                <label htmlFor={`style-${index}`} className="form-label">Style</label>
+                <select
+                  id={`style-${index}`}
+                  className="form-select"
+                  value={cabinet.style}
+                  onChange={(e) => updateCabinet(index, 'style', e.target.value as StyleType)}
+                  required
+                >
+                  <option value="">Select style</option>
+                  <option value={StyleType.SEGMENT}>Segment</option>
+                  <option value={StyleType.SLAB}>Slab</option>
+                  <option value={StyleType.BEADED}>Beaded</option>
+                  <option value={StyleType.REVEAL}>Reveal</option>
+                  <option value={StyleType.BEVEL}>Bevel</option>
+                </select>
+              </div>
+            </div>
             {cabinet.configurationType && (
               <div className="text-center mb-3">
                 <img src={configurationImages[cabinet.configurationType]} alt={cabinet.configurationType} style={{ width: '100%', maxWidth: '300px' }} />
+                <p><strong>Style:</strong> {cabinet.style}</p>
               </div>
             )}
           </div>

@@ -1,5 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Order } from './order.entity';
+import { ConfigurationType } from './dto/configuration-type.enum';
+import { StyleType } from './dto/style-type.enum';
 
 @Entity()
 export class Cabinet {
@@ -16,13 +18,10 @@ export class Cabinet {
   depth: number;
 
   @Column()
-  configurationType: string; // e.g., '3_drawer', '2_drawer', 'door', 'door_false_front'
+  configurationType: ConfigurationType;
 
-  @Column({ nullable: true })
-  drawerCount?: number;
-
-  @Column({ nullable: true })
-  doorType?: string;
+  @Column()
+  style: StyleType;
 
   @ManyToOne(() => Order, (order) => order.cabinets)
   order: Order;

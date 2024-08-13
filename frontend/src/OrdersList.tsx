@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ConfigurationType } from './enums/configuration-type.enum';
+import { StyleType } from './enums/StyleType.enum';
 
 interface Cabinet {
   id: number;
@@ -8,8 +9,7 @@ interface Cabinet {
   height: number;
   depth: number;
   configurationType: ConfigurationType;
-  drawerCount?: number;
-  doorType?: string;
+  style: StyleType;
 }
 
 interface Order {
@@ -73,6 +73,7 @@ const OrdersList: React.FC = () => {
                         <tr><th>Height:</th><td>{cabinet.height} in</td></tr>
                         <tr><th>Depth:</th><td>{cabinet.depth} in</td></tr>
                         <tr><th>Type:</th><td>{cabinet.configurationType}</td></tr>
+                        <tr><th>Style:</th><td>{cabinet.style}</td></tr>
                       </table>
                     </td>
                   </tr>
