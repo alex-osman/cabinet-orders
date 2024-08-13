@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { ConfigurationType } from './enum/configuration-type.enum';
+import { ConfigurationType } from './enums/configuration-type.enum';
 
 interface Cabinet {
   width: number;

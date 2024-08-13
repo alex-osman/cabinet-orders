@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ConfigurationType } from '../../shared/configuration-type.enum';
 
 interface Cabinet {
   id: number;
   width: number;
   height: number;
   depth: number;
-  configurationType: string;
+  configurationType: ConfigurationType;
   drawerCount?: number;
   doorType?: string;
 }
