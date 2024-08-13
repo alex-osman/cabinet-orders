@@ -1,19 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Cabinet } from './cabinet.entity';
 
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('float')
-  width: number;
-
-  @Column('float')
-  height: number;
-
-  @Column('float')
-  depth: number;
-
   @Column()
-  style: string;
+  customerName: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  orderDate: Date;
+
+  @OneToMany(() => Cabinet, (cabinet) => cabinet.order, { cascade: true })
+  cabinets: Cabinet[];
 }

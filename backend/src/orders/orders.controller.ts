@@ -4,7 +4,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { Response } from 'express';
 import { Order } from './order.entity';
 
-@Controller('api/orders')
+@Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
@@ -22,15 +22,5 @@ export class OrdersController {
   @Get()
   async getAllOrders(): Promise<Order[]> {
     return this.ordersService.findAll();
-  }
-  
-  @Get("test")
-  async addOrder() {
-    return this.ordersService.create({
-      width: 10,
-      height: 20,
-      depth: 30,
-      style: "modern",
-    });
   }
 }
