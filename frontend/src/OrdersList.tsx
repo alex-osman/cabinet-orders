@@ -40,6 +40,15 @@ const OrdersList: React.FC = () => {
     setExpandedOrderId((prevId) => (prevId === orderId ? null : orderId));
   };
 
+  const handleGenerate = async (orderId: number) => {
+    try {
+      const response = await axios.post(`http://localhost:4000/orders/${orderId}/generate-ord`);
+      console.log('Response:', response);
+    } catch (error) {
+      console.error('Error generating .ord file:', error);
+    }
+  };
+
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">Orders List</h2>
@@ -50,6 +59,7 @@ const OrdersList: React.FC = () => {
             <th>Customer Name</th>
             <th>Order Date</th>
             <th>Number of Cabinets</th>
+            <th>Generate .ORD</th>
           </tr>
         </thead>
         <tbody>
@@ -62,11 +72,14 @@ const OrdersList: React.FC = () => {
                 <td onClick={() => toggleExpand(order.id)} style={{ cursor: 'pointer', color: 'blue' }}>
                   {order.cabinets.length}
                 </td>
+                <td>
+                  <button onClick={() => handleGenerate(order.id)} className="btn btn-primary">Generate</button>
+                </td>
               </tr>
               {expandedOrderId === order.id && (
                 order.cabinets.map((cabinet) => (
                   <tr key={cabinet.id}>
-                    <td colSpan={4} style={{ paddingLeft: '30px' }}>
+                    <td colSpan={5} style={{ paddingLeft: '30px' }}>
                       <table>
                         <tr><th> ID:</th><td>{cabinet.id}</td></tr>
                         <tr><th>Width:</th><td>{cabinet.width} in</td></tr>
