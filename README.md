@@ -87,4 +87,4 @@ This project is a full-stack application designed for a carpentry company to man
 
 ## Time Keeper
 
-Aug 13 1:30pm to 4pm
+Aug 13 1:30pm to 4:30pm (4 hrs)
